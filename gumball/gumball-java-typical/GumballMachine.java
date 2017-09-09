@@ -3,41 +3,63 @@ public class GumballMachine
 {
 
     private int num_gumballs;
-    private boolean has_quarter;
+    private int current_coin;
+    private int cost;
+    private static int _QUATER_ONLY = 0;
+    private static int _ALL_COINS = 1;
 
-    public GumballMachine( int size )
+    private static int _NICKEL = 5;
+    private static int _DIME = 10;
+    private static int _QUATER = 25;
+
+    private static ArrayList<Integer> _VALID_COIN_TYPES =
+      new ArrayList<Integer> (Arrays.asList(_NICKEL, _DIME, _QUATER));
+
+    /**
+     * Initialise a Cumball Machine with size, cost and coin type.
+     *
+     * @param size  the maximum amount of gumball in this machine
+     * @param cost  the cost of each gumball.
+     * @param coinMode  the type of accpted coins, 0:quater only, 1: all coins.
+     */
+    public GumballMachine( int size, int cost, int coinMode )
     {
         // initialise instance variables
         this.num_gumballs = size;
-        this.has_quarter = false;
+        this.cost = cost;
+        this.coinMode = coinMode;
     }
 
     public void insertQuarter(int coin)
     {
-        if ( coin == 25 )
-            this.has_quarter = true ;
-        else 
-            this.has_quarter = false ;
+        if(_VALID_COIN_TYPES.cointains(coin))
+        {
+          current_coin += coin;
+        }
+        else
+        {
+          System.out.println( "Not a valid coin." ) ;
+        }
     }
-    
+
     public void turnCrank()
     {
-    	if ( this.has_quarter )
+    	if ( this.current_coin > this.cost)
     	{
     		if ( this.num_gumballs > 0 )
     		{
     			this.num_gumballs-- ;
-    			this.has_quarter = false ;
-    			System.out.println( "Thanks for your quarter.  Gumball Ejected!" ) ;
+    			this.current_coin -= this.cost;
+    			System.out.println( "Thanks for your coins.  Gumball Ejected!" ) ;
     		}
     		else
     		{
-    			System.out.println( "No More Gumballs!  Sorry, can't return your quarter." ) ;
+    			System.out.println( "No More Gumballs!  Sorry, can't return your coins." ) ;
     		}
     	}
-    	else 
+    	else
     	{
-    		System.out.println( "Please insert a quarter" ) ;
-    	}        
+    		System.out.println( "Please insert coins" ) ;
+    	}
     }
 }
