@@ -1,9 +1,9 @@
-
+package gumball.pattern;
 
 public interface State {
- 
-	public void insertQuarter();
-	public void ejectQuarter();
+
+	public void insertCoins(int coin);
+	public void ejectCoins();
 	public void turnCrank();
 	public void dispense();
 }
